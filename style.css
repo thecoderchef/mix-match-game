@@ -1,0 +1,218 @@
+@font-face {
+    font-family: "creepy";
+    src: url(assests/fonts/Creepy.woff) format("woff"), url(assests/fonts/Creepy.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "lunacy";
+    src: url(assests/fonts/Lunacy.woff) format("woff"), url(assests/fonts/Lunacy.woff2) format("woff2");
+}
+
+* {
+    box-sizing: border-box;
+
+}
+
+html {
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(#e66465, #9198e5);
+}
+
+.page-title {
+    color: #11164d;
+    font-family: Creepy, serif;
+    font-weight: normal;
+    text-align: center;
+    font-size: 6em;
+}
+
+.game-info-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-info {
+    font-family: lunacy, serif;
+    color:beige;
+    font-size: 4em;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+    margin: 50px;
+    justify-content: center;
+    perspective: 500px;
+}
+
+.card {
+    position: relative;
+    height: 175px;
+    width: 125px;
+}
+
+.card-face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    border-width: 1px;
+    border-style: solid;
+
+}
+
+.card.visible .card-back {
+    transform: rotateY(-180deg);
+}
+
+.card.visible .card-front{
+    transform: rotateY(0);
+}
+
+.card.matched .card-value {
+    animation: dance 1s linear infinite 500ms;
+}
+
+.overlay-text {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    color: #e66465;
+    font-family: creepy, serif;
+}
+
+.overlay-text-small {
+    font-size: .3em;
+
+}
+
+.overlay-text.visible {
+    display: flex;
+    flex-direction: column;
+    animation: overlay-grow 500ms forwards;
+}
+
+@keyframes overlay-grow {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        font-size: 0;
+    }
+    to {
+        background-color: rgba(0, 0, 0, .8);
+        font-size: 10em;
+    }
+}
+
+@keyframes dance {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    25% {
+       transform: rotate(-30deg); 
+    }
+    75% {
+        transform: rotate(30deg); 
+     }
+}
+
+.card-back {
+    background-color: black;
+    border-color: #9198e5;
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    background-color: #e66465;
+    transform: rotateY(180deg);
+}
+
+.card-value { 
+    transform: scale(.9);
+}
+
+.card-front:hover .card-value {
+    transition: transform 100ms ease-in-out;
+    transform: scale(1);
+}
+
+
+.lights {
+    position: absolute;
+    width: 47px;
+    height: 47px;
+    transition: width 100ms ease-in-out, height 100ms ease-in-out;
+}
+
+.card-face:hover .lights {
+    width: 52px;
+    height: 52px;
+}
+
+.lights-top-left {
+    transform: rotate(270deg);
+    top: 0;
+    left: 0;
+
+}
+
+.lights-top-right {
+    transform: rotate(270deg);
+    top: 0;
+    right: 0;
+    
+}
+
+.lights-bottom-left {
+    transform: rotate(180deg);
+    bottom: 0;
+    left: 0;
+    
+}
+
+.lights-bottom-right {
+    transform: rotate(90deg);
+    bottom: 0;
+    right: 0;
+    
+}
+
+.fruittray {
+    align-self: center;
+    transform: translateY(-10px);
+    transition: transform 100ms ease-in-out;
+
+}
+
+.card-back:hover .fruittray {
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .game-container { 
+        grid-template-columns: repeat(2, auto);
+    }
+
+        .game-info-container {
+            flex-direction: column;
+            align-items: center;
+        }
+           
+
+}
